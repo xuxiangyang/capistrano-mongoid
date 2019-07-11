@@ -1,0 +1,30 @@
+namespace :load do
+  task :defaults do
+    set :mongoid_role, fetch(:mongoid_role, :mongoid)
+  end
+end
+
+namespace :mongoid do
+  task :create_indexes do
+    on roles(fetch(:mongoid_role)) do
+      within release_path do
+        with rails_env: fetch(:rails_env) do
+          execute :rake, "db:mongoid:create_indexes"
+        end
+      end
+    end
+  end
+
+  task :remove_undefined_indexes do
+    on roles(fetch(:mongoid_role)) do
+      within release_path do
+        with rack_env: fetch(:puma_env) do
+          execute :rake, "db:mongoid:remove_undefined_indexes"
+        end
+      end
+    end
+  end
+
+  after 'deploy:updated', 'mongoid:create_indexes'
+  after 'mongoid:create_indexes', 'mongoid:remove_undefined_indexes'
+end
