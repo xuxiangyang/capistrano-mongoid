@@ -18,13 +18,24 @@ namespace :mongoid do
   task :remove_undefined_indexes do
     on roles(fetch(:mongoid_role)) do
       within release_path do
-        with rack_env: fetch(:puma_env) do
+        with rack_env: fetch(:rails_env) do
           execute :rake, "db:mongoid:remove_undefined_indexes"
         end
       end
     end
   end
 
-  after 'deploy:updated', 'mongoid:create_indexes'
+  task :shard do
+    on roles(fetch(:mongoid_role)) do
+      within release_path do
+        with rack_env: fetch(:rails_env) do
+          execute :rake, "db:mongoid:shard"
+        end
+      end
+    end
+  end
+
+  after 'deploy:updated', 'mongoid:shard'
+  after 'mongoid:shard', 'mongoid:create_indexes'
   after 'mongoid:create_indexes', 'mongoid:remove_undefined_indexes'
 end
