@@ -4,6 +4,7 @@ namespace :db do
     task shard: :environment do
       ::Mongoid.models.each do |model|
         next unless !model.embedded? || model.cyclic?
+        next unless model.collection.cluster.sharded?
         next if model.shard_key_fields.blank?
 
         admin_db = model.collection.client.list_mongo_databases(name: :admin).first
