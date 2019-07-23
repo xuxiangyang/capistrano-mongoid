@@ -9,8 +9,11 @@ TODO: Delete this and the text above, and describe your gem
 Add this line to your application's Gemfile:
 
 ```ruby
+gem 'mongoid', git: "https://github.com/xuxiangyang/mongoid.git"
 gem 'capistrano-mongoid'
 ```
+
+I'm waiting for https://github.com/mongodb/mongoid/pull/4650 PR be merged, before this PR merged, you must use my mongoid fork.
 
 And then execute:
 
