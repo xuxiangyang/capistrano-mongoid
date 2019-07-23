@@ -25,7 +25,7 @@ Or install it yourself as:
 
 ## Usage
 
-```
+```ruby
 # Capfile
 require 'capistrano/sidekiq'
 require 'capistrano/sidekiq/monit' #to require monit tasks # Only for capistrano3
@@ -33,7 +33,7 @@ require 'capistrano/sidekiq/monit' #to require monit tasks # Only for capistrano
 
 Configurable options, shown here with defaults:
 
-```
+```ruby
 mongoid_role => "mongoid" # sync index and shard server, should has only one server
 ```
 
