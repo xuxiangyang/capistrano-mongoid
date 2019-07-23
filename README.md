@@ -25,7 +25,17 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```
+# Capfile
+require 'capistrano/sidekiq'
+require 'capistrano/sidekiq/monit' #to require monit tasks # Only for capistrano3
+```
+
+Configurable options, shown here with defaults:
+
+```
+mongoid_role => "mongoid" # sync index and shard server, should has only one server
+```
 
 ## Development
 
