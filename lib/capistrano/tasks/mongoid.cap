@@ -36,6 +36,5 @@ namespace :mongoid do
   end
 
   after 'deploy:updated', 'mongoid:create_indexes'
-  after 'mongoid:create_indexes', 'mongoid:remove_undefined_indexes'
-  after 'mongoid:remove_undefined_indexes', 'mongoid:shard_collections'
+  after 'mongoid:create_indexes', 'mongoid:shard_collections'
 end
